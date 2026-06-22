@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary of Terms</title>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,22 +21,62 @@
         <a href = "https://forms.gle/SUbpv2eocXGnJCTk8" target = "_blank">Submit a term</a>
     </header>
 
+    <div id = "filters">
+        <input type = "checkbox" value = "novice" id = "myCheckbox">
+        <label for = "novice">Novice</label>
+
+        <input type = "checkbox" value = "beginner" id = "beginner">
+        <label for = "beginner">Beginner</label>
+
+        <input type = "checkbox" value = "student" id = "student">
+        <label for = "student">Student</label>
+    </div>
+
     <div id = "dictionary">
         <h2>Dictionary of Terms</h2>
 
-        <p id = "app"><b>App (application): </b></p>
-        <p id = "backend"></p>
-        <p id = "cpu"><b>CPU: </b>Central Processing Unit. The "brain" of the computer, the location where instructions are processed at the lowest possible level.</p>
-        <p id = "frontend"><b>Front end development: </b>Type of software development where </p>
-        <p id = "golang"><b>Golang: </b></p>
-        <p id = "helloworld"><b>Hello World: </b>A sentence used in intro programming to test or teach a print statement. </p>
-        <p id = "java"><b>Java: </b>Object-oriented programming language. <a href = "https://docs.oracle.com/en/java/">Java Documentation</a></p>
-        <p id = "kubernetes"><b>Kubernetes: </b>Automated deployment and management of containers in large numbers. </p>
-        <p id = "oop"><b>OOP: </b>Object Oriented Programming. A classification of programming languages which are centered around the definition of objects. Examples include Java, C#, and C++. </p>
-        <p id = "readme"><b>Readme: </b>A file included in software development projects to indicate supplementary information like how to </p>
+        <p id = "app" level="novice"><b>App (application): </b></p>
+        <p id = "backend" level="student"></p>
+        <p id = "cpu" level="student"><b>CPU: </b>Central Processing Unit. The "brain" of the computer, the location where instructions are processed at the lowest possible level.</p>
+        <p id = "frontend" level="student"><b>Front end development: </b>Type of software development where </p>
+        <p id = "golang" level="student"><b>Golang: </b></p>
+        <p id = "helloworld" level="student"><b>Hello World: </b>A sentence used in intro programming to test or teach a print statement. </p>
+        <p id = "java" level="student"><b>Java: </b>Object-oriented programming language. <a href = "https://docs.oracle.com/en/java/">Java Documentation</a></p>
+        <p id = "kubernetes" level="student"><b>Kubernetes: </b>Automated deployment and management of containers in large numbers. </p>
+        <p id = "oop" level="student"><b>OOP: </b>Object Oriented Programming. A classification of programming languages which are centered around the definition of objects. Examples include Java, C#, and C++. </p>
+        <p id = "readme" level="student"><b>Readme: </b>A file included in software development projects to indicate supplementary information like how to </p>
 
     </div>
     
     <footer>&copy; 2026 kbussey829. All rights reserved. </footer>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const terms = document.querySelectorAll('p');
+        
+        // function to show/hide terms in the dictionary based on what is selected
+        function filter() {
+
+            // create array of selected checkboxes
+            const activeFilters = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            // update visibility on each dictionary term based on the 
+            terms.forEach(term => {
+                const termLevel = term.getAttribute('level');
+                if (activeFilters.length === 0 || activeFilters.includes(termLevel)) {
+                    term.classList.remove('hidden');
+                } else {
+                    term.classList.add('hidden');
+                }
+            });
+        };
+
+        // add event listeners for each checkbox
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filter);
+        });
+    </script>
 </body>
 </html>
