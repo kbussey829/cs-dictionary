@@ -9,9 +9,9 @@ function filter() {
         .filter(checkbox => checkbox.checked)
         .map(checkbox => checkbox.value);
 
-    // update visibility on each dictionary term based on the 
+    // update visibility on each dictionary term based on which levels are selected
     terms.forEach(term => {
-        const termLevel = term.getAttribute('level');
+        const termLevel = term.getAttribute('data-level');
         if (activeFilters.length === 0 || activeFilters.includes(termLevel)) {
             term.classList.remove('hidden');
         } else {
